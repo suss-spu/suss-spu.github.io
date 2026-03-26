@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta name="theme-color" content="#0b1020" />
-    <title>special project unit</title>
+    <title>SUSS | SPU</title>
     <style>
       :root {
         --bg0: 11 16 32;
@@ -16,14 +16,6 @@
         --accent2: 195 140 255;
         --shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
         --radius: 22px;
-      }
-
-      [data-theme="light"] {
-        --bg0: 245 247 255;
-        --bg1: 225 235 255;
-        --fg: 14 18 32;
-        --muted: 55 62 90;
-        --shadow: 0 18px 50px rgba(0, 0, 0, 0.12);
       }
 
       * { box-sizing: border-box; }
@@ -115,28 +107,6 @@
         letter-spacing: 0.2px;
       }
 
-      .controls {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-
-      .chip {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        padding: 9px 12px;
-        border-radius: 999px;
-        border: 1px solid rgba(var(--glass), 0.16);
-        background: rgba(var(--glass), 0.07);
-        color: rgb(var(--fg));
-        cursor: pointer;
-        user-select: none;
-        transition: transform 160ms ease, background 160ms ease;
-      }
-      .chip:hover { transform: translateY(-1px); background: rgba(var(--glass), 0.10); }
-      .chip:active { transform: translateY(0px); }
-
       main {
         min-height: calc(100vh - 60px);
         display: grid;
@@ -175,27 +145,12 @@
         letter-spacing: 0.25px;
       }
 
-      .pulse {
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background: rgba(var(--accent), 0.95);
-        box-shadow: 0 0 0 0 rgba(var(--accent), 0.55);
-        animation: pulse 1.8s ease-out infinite;
-      }
-      @keyframes pulse {
-        0% { box-shadow: 0 0 0 0 rgba(var(--accent), 0.55); }
-        70% { box-shadow: 0 0 0 14px rgba(var(--accent), 0); }
-        100% { box-shadow: 0 0 0 0 rgba(var(--accent), 0); }
-      }
-
       h1 {
         margin: 0;
         font-size: clamp(34px, 6vw, 66px);
         line-height: 1.02;
         letter-spacing: -0.03em;
         text-align: center;
-        text-transform: lowercase;
       }
 
       .subtitle {
@@ -280,9 +235,9 @@
 
       /* Reduced motion support */
       @media (prefers-reduced-motion: reduce) {
-        .bg, .pulse, .reveal { animation: none !important; }
+        .bg, .reveal { animation: none !important; }
         canvas#particles { display: none; }
-        .btn, .chip, .card { transition: none !important; }
+        .btn, .card { transition: none !important; }
       }
 
       footer {
@@ -290,6 +245,60 @@
         color: rgba(var(--muted), 0.8);
         text-align: center;
         font-size: 13px;
+      }
+
+      .modal-backdrop {
+        position: fixed;
+        inset: 0;
+        z-index: 60;
+        display: grid;
+        place-items: center;
+        padding: 20px;
+        background: rgba(11, 16, 32, 0.56);
+        backdrop-filter: blur(8px);
+      }
+
+      .modal-backdrop[hidden] {
+        display: none;
+      }
+
+      .modal {
+        width: min(520px, 100%);
+        padding: 28px;
+        border-radius: 28px;
+        background: rgba(16, 23, 55, 0.96);
+        border: 1px solid rgba(var(--glass), 0.12);
+        box-shadow: 0 28px 70px rgba(0, 0, 0, 0.35);
+      }
+
+      .modal h2 {
+        margin: 0;
+        font-size: 2rem;
+        letter-spacing: -0.04em;
+      }
+
+      .modal p {
+        margin: 16px 0 0;
+        color: rgba(var(--muted), 0.95);
+        line-height: 1.7;
+      }
+
+      .modal-email {
+        display: inline-block;
+        margin-top: 10px;
+        color: rgb(var(--fg));
+        font-weight: 700;
+      }
+
+      .modal-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 24px;
+      }
+
+      .modal-open {
+        overflow: hidden;
       }
 
       /* Focus styles */
@@ -310,73 +319,84 @@
         <div class="bar">
           <a class="brand" href="#" aria-label="Home">
             <div class="logo" aria-hidden="true"></div>
-            <span>SPU</span>
+            <span>SUSS | SPU</span>
           </a>
-
-          <div class="controls">
-            <button class="chip" id="motionBtn" type="button" aria-pressed="true" title="Toggle background motion">
-              <span aria-hidden="true">✨</span><span>Motion</span>
-            </button>
-
-            <button class="chip" id="themeBtn" type="button" aria-pressed="false" title="Toggle theme">
-              <span aria-hidden="true">🌓</span><span>Theme</span>
-            </button>
-          </div>
         </div>
       </div>
     </header>
 
     <main>
-      <section class="hero" role="region" aria-label="Special Project Unit landing">
+      <section class="hero" role="region" aria-label="Special Projects Unit landing">
         <div class="hero-inner">
-          <div class="kicker reveal">
-            <span class="pulse" aria-hidden="true"></span>
-            <span>Modern, responsive, accessible landing page</span>
-          </div>
-
-          <h1 class="reveal">special project unit</h1>
+          <h1 class="reveal">Special Projects Unit</h1>
 
           <p class="subtitle reveal">
-            A clean, modern center title layout with animated background, glassmorphism, theme toggle,
-            and motion controls, ready for you to add sections like initiatives, roadmap, and contact.
+            SPU drives innovation and experimentation in digitalisation, AI, and emerging
+            technologies at SUSS through agile pilots, low-risk testing, and evidence-based
+            transformation across teaching, learning, research, and operations. ✨
           </p>
 
           <div class="actions reveal">
-            <a class="btn primary" href="#focus">
-              <span aria-hidden="true">🚀</span>Explore Focus Areas
-            </a>
-            <a class="btn" href="#contact">
+            <a
+              class="btn"
+              href="mailto:SpecialProjectsUnit@suss.edu.sg?subject=Collaborate%20with%20SUSS%20SPU"
+              data-email-trigger="true"
+            >
               <span aria-hidden="true">✉️</span>Contact
             </a>
           </div>
 
           <div class="grid" id="focus">
             <div class="card">
-              <strong>Strategic Delivery</strong>
-              Rapid pilots, measurable outcomes, stakeholder alignment.
+              <strong>🧪 Innovation Sandbox</strong>
+              A low-risk environment for testing new technologies, digital tools, and emerging
+              solutions across the university.
             </div>
             <div class="card">
-              <strong>Platform and Enablement</strong>
-              Reusable components, automation, governance, documentation.
+              <strong>🚀 Agile Pilot Projects</strong>
+              Time-bound pilots that evaluate new ideas in teaching, learning, research, and
+              operations before wider adoption.
             </div>
             <div class="card">
-              <strong>Quality and Safety</strong>
-              Accessibility, privacy by design, reliability, monitoring.
+              <strong>📊 Responsible and Evidence-based Transformation</strong>
+              Measurable outcomes, responsible AI practices, and scalable approaches that create
+              meaningful institutional impact.
             </div>
           </div>
         </div>
       </section>
     </main>
 
-    <footer id="contact">
-      Built for modern browsers, supports reduced motion, keyboard navigation, and local theme preference.
-    </footer>
+    <footer id="contact"></footer>
+
+    <div
+      class="modal-backdrop"
+      id="emailModal"
+      hidden
+      aria-hidden="true"
+    >
+      <div
+        class="modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="emailModalTitle"
+        aria-describedby="emailModalText"
+      >
+        <h2 id="emailModalTitle">Contact SUSS SPU</h2>
+        <p id="emailModalText">
+          This will open your default mail app and start a message to:
+        </p>
+        <div class="modal-email">SpecialProjectsUnit@suss.edu.sg</div>
+        <p>Subject: <strong>Collaborate with SUSS SPU</strong></p>
+        <div class="modal-actions">
+          <button class="btn primary" id="emailModalConfirm" type="button">Open Email</button>
+          <button class="btn" id="emailModalCancel" type="button">Cancel</button>
+        </div>
+      </div>
+    </div>
 
     <script>
       (function () {
-        const root = document.documentElement;
-        const themeBtn = document.getElementById("themeBtn");
-        const motionBtn = document.getElementById("motionBtn");
         const canvas = document.getElementById("particles");
         const ctx = canvas.getContext("2d", { alpha: true });
 
@@ -385,7 +405,6 @@
         let W = 0, H = 0, DPR = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
         let particles = [];
         let raf = null;
-        let motionOn = !prefersReduced;
 
         function setSize() {
           W = window.innerWidth;
@@ -481,13 +500,7 @@
 
           ctx.globalAlpha = 1;
 
-          if (motionOn) raf = requestAnimationFrame(draw);
-        }
-
-        function stop() {
-          if (raf) cancelAnimationFrame(raf);
-          raf = null;
-          clear();
+          raf = requestAnimationFrame(draw);
         }
 
         function start() {
@@ -495,43 +508,71 @@
           if (!raf) draw();
         }
 
-        function setTheme(theme) {
-          root.setAttribute("data-theme", theme);
-          localStorage.setItem("spu_theme", theme);
-          themeBtn.setAttribute("aria-pressed", theme === "light" ? "true" : "false");
-        }
-
-        function toggleTheme() {
-          const current = root.getAttribute("data-theme") || "dark";
-          setTheme(current === "dark" ? "light" : "dark");
-        }
-
-        function setMotion(on) {
-          motionOn = on;
-          motionBtn.setAttribute("aria-pressed", on ? "true" : "false");
-          localStorage.setItem("spu_motion", on ? "on" : "off");
-          if (on) start(); else stop();
-        }
-
         // Init
         setSize();
         makeParticles();
-
-        const savedTheme = localStorage.getItem("spu_theme");
-        setTheme(savedTheme || "dark");
-
-        const savedMotion = localStorage.getItem("spu_motion");
-        if (savedMotion === "off") motionOn = false;
-        setMotion(motionOn);
+        start();
 
         window.addEventListener("resize", () => {
           setSize();
           makeParticles();
-          if (motionOn) start();
+          start();
         });
 
-        themeBtn.addEventListener("click", toggleTheme);
-        motionBtn.addEventListener("click", () => setMotion(!motionOn));
+        const modal = document.getElementById("emailModal");
+        const confirmButton = document.getElementById("emailModalConfirm");
+        const cancelButton = document.getElementById("emailModalCancel");
+        const emailTriggers = document.querySelectorAll("[data-email-trigger='true']");
+        let pendingMailto = "";
+        let lastTrigger = null;
+
+        function openModal(mailto, trigger) {
+          pendingMailto = mailto;
+          lastTrigger = trigger;
+          modal.hidden = false;
+          modal.setAttribute("aria-hidden", "false");
+          document.body.classList.add("modal-open");
+          confirmButton.focus();
+        }
+
+        function closeModal() {
+          modal.hidden = true;
+          modal.setAttribute("aria-hidden", "true");
+          document.body.classList.remove("modal-open");
+
+          if (lastTrigger) {
+            lastTrigger.focus();
+          }
+        }
+
+        emailTriggers.forEach((trigger) => {
+          trigger.addEventListener("click", (event) => {
+            event.preventDefault();
+            openModal(trigger.getAttribute("href"), trigger);
+          });
+        });
+
+        confirmButton.addEventListener("click", () => {
+          if (pendingMailto) {
+            window.location.href = pendingMailto;
+          }
+
+          closeModal();
+        });
+
+        cancelButton.addEventListener("click", closeModal);
+
+        modal.addEventListener("click", (event) => {
+          if (event.target === modal) {
+            closeModal();
+          }
+        });
+
+        window.addEventListener("keydown", (event) => {
+          if (event.key === "Escape" && !modal.hidden) {
+            closeModal();
+          }
+        });
       })();
     </script>
   </body>
