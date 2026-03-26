@@ -1,0 +1,1271 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="SUSS Future Learning Hackathon, organised by Singapore University of Social Sciences, focused on learning, teaching, education innovation, and agentic AI."
+    />
+    <title>SUSS Future Learning Hackathon</title>
+    <style>
+      :root {
+        --paper: #f5efe3;
+        --sand: #efe2c7;
+        --ink: #16233b;
+        --muted: #5e6678;
+        --panel: rgba(255, 250, 242, 0.76);
+        --panel-strong: rgba(255, 251, 245, 0.92);
+        --line: rgba(22, 35, 59, 0.12);
+        --teal: #0e8b8f;
+        --gold: #d8a03d;
+        --clay: #b75f3f;
+        --fern: #607a4f;
+        --shadow: 0 24px 60px rgba(22, 35, 59, 0.12);
+        --radius: 28px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Avenir Next", "Helvetica Neue", "Segoe UI", sans-serif;
+        color: var(--ink);
+        background:
+          radial-gradient(circle at top left, rgba(216, 160, 61, 0.22), transparent 32%),
+          radial-gradient(circle at 90% 18%, rgba(14, 139, 143, 0.18), transparent 28%),
+          linear-gradient(180deg, #f8f4eb 0%, #f5efe3 56%, #efe8da 100%);
+        min-height: 100vh;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        background:
+          linear-gradient(rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.14)),
+          repeating-linear-gradient(
+            90deg,
+            transparent 0,
+            transparent 69px,
+            rgba(22, 35, 59, 0.03) 69px,
+            rgba(22, 35, 59, 0.03) 70px
+          );
+        mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.55), transparent 88%);
+      }
+
+      a {
+        color: inherit;
+      }
+
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        backdrop-filter: blur(14px);
+        background: rgba(245, 239, 227, 0.72);
+        border-bottom: 1px solid rgba(22, 35, 59, 0.08);
+      }
+
+      .wrap {
+        width: min(1160px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      .bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 16px 0;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+      }
+
+      .crest {
+        width: 44px;
+        height: 44px;
+        border-radius: 16px;
+        background:
+          linear-gradient(135deg, rgba(216, 160, 61, 0.95), rgba(183, 95, 63, 0.95)),
+          #fff;
+        box-shadow: var(--shadow);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .crest::before,
+      .crest::after {
+        content: "";
+        position: absolute;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.3);
+      }
+
+      .crest::before {
+        width: 30px;
+        height: 30px;
+        top: -8px;
+        left: -4px;
+      }
+
+      .crest::after {
+        width: 18px;
+        height: 18px;
+        right: 6px;
+        bottom: 7px;
+      }
+
+      .brand-mark {
+        font-size: 0.76rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      .brand-name {
+        font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+        font-size: 1.16rem;
+        font-weight: 700;
+        letter-spacing: 0.01em;
+      }
+
+      nav {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      nav a {
+        text-decoration: none;
+        font-size: 0.94rem;
+        color: var(--muted);
+        padding: 10px 14px;
+        border-radius: 999px;
+        border: 1px solid rgba(22, 35, 59, 0.08);
+        background: rgba(255, 255, 255, 0.36);
+      }
+
+      main {
+        padding: 28px 0 60px;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1.2fr) minmax(300px, 0.8fr);
+        gap: 22px;
+        align-items: stretch;
+      }
+
+      .hero-copy,
+      .hero-panel,
+      .section-card,
+      .theme-card,
+      .benefit-card,
+      .partner-card,
+      .venue-card,
+      .cta-band {
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--panel);
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(16px);
+      }
+
+      .hero-copy {
+        padding: clamp(28px, 5vw, 54px);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero-copy::after {
+        content: "";
+        position: absolute;
+        right: -60px;
+        bottom: -80px;
+        width: 280px;
+        height: 280px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(14, 139, 143, 0.12), transparent 68%);
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 14px;
+        border-radius: 999px;
+        font-size: 0.83rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--clay);
+        background: rgba(216, 160, 61, 0.14);
+        border: 1px solid rgba(216, 160, 61, 0.24);
+      }
+
+      .eyebrow::before {
+        content: "";
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, var(--gold), var(--clay));
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+        margin: 0;
+        line-height: 0.98;
+      }
+
+      h1 {
+        font-size: clamp(3rem, 8vw, 5.8rem);
+        letter-spacing: -0.05em;
+        margin-top: 18px;
+      }
+
+      .hero-word {
+        display: inline-grid;
+        place-items: center start;
+        min-width: 6.8ch;
+        color: var(--clay);
+      }
+
+      .hero-word.is-changing {
+        animation: swapWord 320ms ease;
+      }
+
+      @keyframes swapWord {
+        0% {
+          opacity: 0.3;
+          transform: translateY(8px);
+          filter: blur(1px);
+        }
+
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+          filter: blur(0);
+        }
+      }
+
+      .hero-copy p {
+        max-width: 60ch;
+        font-size: 1.08rem;
+        line-height: 1.7;
+        color: var(--muted);
+        margin: 20px 0 0;
+      }
+
+      .action-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 28px;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 13px 18px;
+        border-radius: 16px;
+        text-decoration: none;
+        border: 1px solid transparent;
+        font-weight: 600;
+        transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 16px 30px rgba(22, 35, 59, 0.1);
+      }
+
+      .btn.primary {
+        color: #fff8f0;
+        background: linear-gradient(135deg, var(--clay), var(--gold));
+      }
+
+      .btn.secondary {
+        color: var(--ink);
+        border-color: rgba(22, 35, 59, 0.12);
+        background: rgba(255, 255, 255, 0.5);
+      }
+
+      .hero-panel {
+        padding: 22px;
+        display: grid;
+        gap: 14px;
+      }
+
+      .hero-panel h2 {
+        font-size: 1.6rem;
+        letter-spacing: -0.03em;
+      }
+
+      .micro-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .micro-card,
+      .signal-card {
+        border-radius: 20px;
+        background: var(--panel-strong);
+        border: 1px solid rgba(22, 35, 59, 0.08);
+        padding: 16px;
+      }
+
+      .micro-card strong,
+      .signal-card strong,
+      .theme-card strong,
+      .timeline-card strong,
+      .partner-card strong,
+      .benefit-card strong,
+      .venue-card strong {
+        display: block;
+        font-size: 1rem;
+        margin-bottom: 7px;
+      }
+
+      .micro-card p,
+      .signal-card p,
+      .theme-card p,
+      .timeline-card p,
+      .partner-card p,
+      .benefit-card p,
+      .venue-card p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.55;
+      }
+
+      .signal-card {
+        display: grid;
+        gap: 8px;
+        background:
+          linear-gradient(135deg, rgba(14, 139, 143, 0.1), rgba(216, 160, 61, 0.08)),
+          var(--panel-strong);
+      }
+
+      .section {
+        margin-top: 26px;
+      }
+
+      .section-card {
+        padding: clamp(24px, 4vw, 34px);
+      }
+
+      .section-head {
+        display: grid;
+        grid-template-columns: minmax(0, 0.95fr) minmax(240px, 0.8fr);
+        gap: 22px;
+        align-items: start;
+      }
+
+      .section-label {
+        color: var(--clay);
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        font-size: 0.78rem;
+        margin-bottom: 10px;
+      }
+
+      .section-head h2 {
+        font-size: clamp(2rem, 4.2vw, 3.3rem);
+        letter-spacing: -0.04em;
+      }
+
+      .section-head p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      .theme-grid,
+      .timeline-grid,
+      .partner-grid,
+      .benefit-grid {
+        display: grid;
+        gap: 16px;
+        margin-top: 24px;
+      }
+
+      .theme-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .timeline-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .partner-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .benefit-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .theme-card,
+      .timeline-card,
+      .partner-card,
+      .benefit-card,
+      .venue-card {
+        padding: 22px;
+      }
+
+      .theme-index {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 14px;
+        background: rgba(22, 35, 59, 0.06);
+        font-weight: 700;
+        margin-bottom: 14px;
+      }
+
+      .timeline-card {
+        background: var(--panel-strong);
+        border: 1px solid rgba(22, 35, 59, 0.08);
+        border-radius: 22px;
+      }
+
+      .timeline-date {
+        display: inline-flex;
+        align-items: center;
+        margin-bottom: 12px;
+        padding: 8px 12px;
+        border-radius: 999px;
+        font-size: 0.8rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--clay);
+        background: rgba(216, 160, 61, 0.14);
+        border: 1px solid rgba(216, 160, 61, 0.24);
+      }
+
+      .timeline-card.current {
+        background: linear-gradient(135deg, rgba(183, 95, 63, 0.08), rgba(216, 160, 61, 0.12)),
+          var(--panel-strong);
+        border-color: rgba(183, 95, 63, 0.2);
+      }
+
+      .priority-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        width: fit-content;
+        margin-bottom: 18px;
+        padding: 10px 14px;
+        border-radius: 999px;
+        font-size: 0.82rem;
+        font-weight: 700;
+        color: var(--ink);
+        text-decoration: none;
+        background: rgba(183, 95, 63, 0.14);
+        border: 1px solid rgba(183, 95, 63, 0.22);
+        box-shadow: 0 0 0 0 rgba(183, 95, 63, 0.26);
+        animation: blinkPriority 1.1s step-end infinite;
+      }
+
+      .priority-button::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        background: var(--clay);
+      }
+
+      @keyframes blinkPriority {
+        50% {
+          opacity: 0.48;
+          box-shadow: 0 0 0 8px rgba(183, 95, 63, 0);
+        }
+      }
+
+      .theme-card:nth-child(2n) .theme-index {
+        background: rgba(14, 139, 143, 0.12);
+      }
+
+      .theme-card:nth-child(3n) .theme-index {
+        background: rgba(216, 160, 61, 0.16);
+      }
+
+      .bullets {
+        list-style: none;
+        padding: 0;
+        margin: 18px 0 0;
+        display: grid;
+        gap: 12px;
+      }
+
+      .bullets li {
+        position: relative;
+        padding-left: 18px;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .bullets li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0.7em;
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, var(--teal), var(--gold));
+      }
+
+      .partner-intro {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(250px, 0.72fr);
+        gap: 18px;
+        margin-top: 24px;
+      }
+
+      .callout {
+        border-radius: 24px;
+        padding: 22px;
+        background: linear-gradient(135deg, rgba(183, 95, 63, 0.1), rgba(216, 160, 61, 0.14));
+        border: 1px solid rgba(183, 95, 63, 0.16);
+      }
+
+      .callout h3 {
+        font-size: 1.5rem;
+        letter-spacing: -0.03em;
+      }
+
+      .callout p {
+        margin: 12px 0 0;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      .tag-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 16px;
+      }
+
+      .tag {
+        padding: 10px 12px;
+        border-radius: 999px;
+        font-size: 0.88rem;
+        color: var(--ink);
+        background: rgba(255, 255, 255, 0.54);
+        border: 1px solid rgba(22, 35, 59, 0.08);
+      }
+
+      .venue-strip {
+        display: grid;
+        grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+        gap: 16px;
+        margin-top: 24px;
+      }
+
+      .cta-band {
+        margin-top: 26px;
+        padding: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        background:
+          linear-gradient(135deg, rgba(22, 35, 59, 0.92), rgba(14, 139, 143, 0.82)),
+          #14233b;
+        color: #fff8f0;
+      }
+
+      .cta-band h3 {
+        font-size: 1.8rem;
+        letter-spacing: -0.03em;
+      }
+
+      .cta-band p {
+        margin: 8px 0 0;
+        color: rgba(255, 248, 240, 0.78);
+      }
+
+      .cta-band .btn.secondary {
+        background: rgba(255, 255, 255, 0.12);
+        border-color: rgba(255, 255, 255, 0.18);
+        color: #fff8f0;
+      }
+
+      .modal-backdrop {
+        position: fixed;
+        inset: 0;
+        z-index: 60;
+        display: grid;
+        place-items: center;
+        padding: 20px;
+        background: rgba(22, 35, 59, 0.48);
+        backdrop-filter: blur(8px);
+      }
+
+      .modal-backdrop[hidden] {
+        display: none;
+      }
+
+      .modal {
+        width: min(520px, 100%);
+        padding: 28px;
+        border-radius: 28px;
+        background: rgba(255, 251, 245, 0.96);
+        border: 1px solid rgba(22, 35, 59, 0.1);
+        box-shadow: 0 28px 70px rgba(22, 35, 59, 0.22);
+      }
+
+      .modal h2 {
+        font-size: 2rem;
+        letter-spacing: -0.04em;
+      }
+
+      .modal p {
+        margin: 16px 0 0;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      .modal-email {
+        display: inline-block;
+        margin-top: 10px;
+        color: var(--ink);
+        font-weight: 700;
+      }
+
+      .modal-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 24px;
+      }
+
+      .modal-open {
+        overflow: hidden;
+      }
+
+      footer {
+        padding: 0 0 40px;
+      }
+
+      .footnote {
+        margin-top: 18px;
+        text-align: center;
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      @media (max-width: 980px) {
+        .hero,
+        .section-head,
+        .partner-intro,
+        .venue-strip,
+        .cta-band {
+          grid-template-columns: 1fr;
+        }
+
+        .theme-grid,
+        .timeline-grid,
+        .partner-grid,
+        .benefit-grid,
+        .micro-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .cta-band {
+          align-items: flex-start;
+        }
+      }
+
+      @media (max-width: 700px) {
+        .bar {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        nav {
+          width: 100%;
+        }
+
+        nav a {
+          flex: 1 1 auto;
+          text-align: center;
+        }
+
+        .wrap {
+          width: min(100% - 20px, 1160px);
+        }
+
+        .hero-copy,
+        .hero-panel,
+        .section-card,
+        .cta-band,
+        .modal {
+          border-radius: 24px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+
+        .btn,
+        .hero-word.is-changing,
+        .priority-button {
+          transition: none;
+          animation: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="wrap">
+        <div class="bar">
+          <a class="brand" href="#top" aria-label="SUSS Future Learning Hackathon">
+            <div class="crest" aria-hidden="true"></div>
+            <div>
+              <div class="brand-mark">Organised by SUSS</div>
+              <div class="brand-name">Future Learning Hackathon</div>
+            </div>
+          </a>
+
+          <nav aria-label="Page sections">
+            <a href="#timeline">Timeline</a>
+            <a href="#themes">Themes</a>
+            <a href="#partners">Sponsoring Partners</a>
+            <a href="#benefits">Benefits</a>
+            <a href="#venue">Venue</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <main id="top">
+      <div class="wrap">
+        <section class="hero" aria-labelledby="hero-title">
+          <div class="hero-copy">
+            <div class="eyebrow">Singapore University of Social Sciences</div>
+            <h1 id="hero-title">
+              <span class="hero-word" id="heroWord">Hack</span> the next chapter of learning.
+            </h1>
+            <p>
+              The SUSS Future Learning Hackathon is a campus-based innovation sprint organised by
+              Singapore University of Social Sciences, Singapore's university for lifelong
+              learning. It brings together students, educators, builders, and industry partners to
+              prototype practical ideas for learning, teaching, education use cases, and agentic
+              AI.
+            </p>
+            <p>
+              This is not a generic coding event. The challenge focus is clear: build tools,
+              workflows, and experiences that make education more human, more effective, and more
+              scalable for the future of teaching and lifelong learning, in line with SUSS'
+              emphasis on purposeful continuous learning, applied research, and impactful
+              partnerships.
+            </p>
+
+            <div class="action-row">
+              <a
+                class="btn primary"
+                href="mailto:bryanlimyt@suss.edu.sg?subject=HACK%3A%20Sponsoring%20Partner"
+                data-email-trigger="true"
+              >
+                Become a Sponsoring Partner
+              </a>
+              <a class="btn secondary" href="#themes">Explore Challenge Themes</a>
+            </div>
+          </div>
+
+          <aside class="hero-panel" aria-label="Event snapshot">
+            <h2>Event snapshot</h2>
+
+            <div class="micro-grid">
+              <div class="micro-card">
+                <strong>Organiser</strong>
+                <p>
+                  SUSS positions itself as Singapore's university for lifelong learning, with a
+                  mission centered on social good through continuous learning, applied research,
+                  and strong partnerships.
+                </p>
+              </div>
+              <div class="micro-card">
+                <strong>Participants</strong>
+                <p>
+                  A university ecosystem with 19,000+ students, 21,000+ alumni, 115+ academic
+                  programmes, and 300+ partners as of September 2025.
+                </p>
+              </div>
+              <div class="micro-card">
+                <strong>Build focus</strong>
+                <p>
+                  Teaching tools, student support, education workflows, analytics, and agentic AI
+                  designed to improve the digital learning experience across the student journey.
+                </p>
+              </div>
+              <div class="micro-card">
+                <strong>Outcome</strong>
+                <p>
+                  Working prototypes, showcase demos, and high-potential ideas that can move into
+                  pilot discussions with faculty, partners, and education stakeholders.
+                </p>
+              </div>
+            </div>
+
+            <div class="signal-card">
+              <strong>Why sponsor this hackathon</strong>
+              <p>
+                Partners can shape real challenge statements, mentor teams, surface talent, and
+                connect their products to an existing SUSS Learning Services ecosystem that
+                supports high-quality academic programmes through educational initiatives,
+                innovative pedagogies, and learning technologies.
+              </p>
+            </div>
+          </aside>
+        </section>
+
+        <section class="section" id="timeline" aria-labelledby="timeline-title">
+          <div class="section-card">
+            <a
+              class="priority-button"
+              href="mailto:bryanlimyt@suss.edu.sg?subject=HACK%3A%20Sponsoring%20Partner"
+              data-email-trigger="true"
+            >
+              Current Priority: Seeking Sponsoring Partners
+            </a>
+
+            <div class="section-head">
+              <div>
+                <div class="section-label">Suggested Timeline</div>
+                <h2 id="timeline-title">Current stage: we are now looking for sponsoring partners</h2>
+              </div>
+              <p>
+                This proposed 2026 timeline gives partners and internal stakeholders a practical
+                planning sequence. The immediate priority is sponsor outreach and challenge
+                co-design, before moving into registration and event delivery.
+              </p>
+            </div>
+
+            <div class="timeline-grid">
+              <article class="timeline-card current">
+                <div class="timeline-date">Now to 31 May 2026</div>
+                <strong>Partner outreach and sponsor confirmation</strong>
+                <p>
+                  We are currently at this stage. SUSS is inviting sponsoring partners, confirming
+                  interest, and identifying partners who can contribute funding, mentors, prizes,
+                  challenge statements, or pilot opportunities.
+                </p>
+              </article>
+
+              <article class="timeline-card">
+                <div class="timeline-date">1 to 30 June 2026</div>
+                <strong>Challenge shaping and programme design</strong>
+                <p>
+                  Finalise challenge themes, align judging criteria, confirm mentors and judges,
+                  and package partner-supported problem statements into clear hackathon tracks.
+                </p>
+              </article>
+
+              <article class="timeline-card">
+                <div class="timeline-date">1 July to 15 August 2026</div>
+                <strong>Open registration and team preparation</strong>
+                <p>
+                  Launch participant registration, publish the event brief, run info sessions, and
+                  help students form teams with a clear understanding of the challenge areas.
+                </p>
+              </article>
+
+              <article class="timeline-card">
+                <div class="timeline-date">Tentative August - Oct 2026</div>
+                <strong>Hackathon at SUSS</strong>
+                <p>
+                  Run the main event on campus once final dates are confirmed, with partner
+                  mentors, working sessions, check-ins, project reviews, final pitches, and award
+                  presentations.
+                </p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="themes" aria-labelledby="themes-title">
+          <div class="section-card">
+            <div class="section-head">
+              <div>
+                <div class="section-label">Challenge Themes</div>
+                <h2 id="themes-title">Proposed tracks for learning, teaching, and agentic AI.</h2>
+              </div>
+              <p>
+                These themes are designed to attract strong student teams while keeping the work
+                anchored to real education needs. Each track can be supported by sponsoring
+                partners through problem statements, APIs, datasets, mentors, judges, or pilot
+                pathways.
+              </p>
+            </div>
+
+            <div class="theme-grid">
+              <article class="theme-card">
+                <div class="theme-index">01</div>
+                <strong>AI for Teaching Design</strong>
+                <p>
+                  Lesson planning, rubric generation, activity design, feedback support, and tools
+                  that help educators teach with more clarity and less repetitive workload.
+                </p>
+              </article>
+
+              <article class="theme-card">
+                <div class="theme-index">02</div>
+                <strong>Agentic AI for Student Support</strong>
+                <p>
+                  Goal-setting agents, study coaches, onboarding assistants, advising workflows,
+                  and support systems that guide students across the learning journey.
+                </p>
+              </article>
+
+              <article class="theme-card">
+                <div class="theme-index">03</div>
+                <strong>Responsible AI in Assessment</strong>
+                <p>
+                  Formative feedback, reflective learning, authentic assessment design, academic
+                  integrity support, and transparent AI-assisted evaluation experiences.
+                </p>
+              </article>
+
+              <article class="theme-card">
+                <div class="theme-index">04</div>
+                <strong>Education Use Cases for Lifelong Learning</strong>
+                <p>
+                  Skills mapping, modular learning, workplace learning pathways, adult learner
+                  support, and systems that connect education to employability and growth.
+                </p>
+              </article>
+
+              <article class="theme-card">
+                <div class="theme-index">05</div>
+                <strong>Inclusive and Accessible Learning</strong>
+                <p>
+                  Multilingual learning experiences, accessibility-first design, assistive
+                  technology, neuroinclusive tools, and equitable digital learning support.
+                </p>
+              </article>
+
+              <article class="theme-card">
+                <div class="theme-index">06</div>
+                <strong>Learning Analytics and Early Intervention</strong>
+                <p>
+                  Insight dashboards, risk detection, timely nudges, and decision support that
+                  help educators identify opportunities to improve engagement and outcomes.
+                </p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="partners" aria-labelledby="partners-title">
+          <div class="section-card">
+            <div class="section-head">
+              <div>
+                <div class="section-label">Call for Partners</div>
+                <h2 id="partners-title">Invitation to sponsoring partners</h2>
+              </div>
+              <p>
+                SUSS welcomes sponsoring partners who want to help shape the future of education.
+                We are looking for organisations that care about learning innovation, digital
+                transformation, student success, responsible AI, and applied experimentation in
+                real-world teaching contexts. The current focus is partner outreach and sponsor
+                confirmation for the proposed 2026 event timeline.
+              </p>
+            </div>
+
+            <div class="partner-intro">
+              <div class="callout">
+                <h3>Partner with SUSS to turn ideas into usable education solutions.</h3>
+                <p>
+                  Sponsoring partners can contribute funding, challenge prizes, mentor time,
+                  product access, cloud credits, data sandboxes, or internship pathways. The value
+                  goes beyond brand presence: this is a chance to engage directly with promising
+                  builders and influence solutions that can matter in classrooms, learner support,
+                  adult learning, and campus services across a university with a large lifelong
+                  learning and industry network.
+                </p>
+                <div class="tag-row" aria-label="Partner contributions">
+                  <span class="tag">Challenge statements</span>
+                  <span class="tag">Mentors and judges</span>
+                  <span class="tag">Prizes and credits</span>
+                  <span class="tag">Pilot opportunities</span>
+                </div>
+              </div>
+
+              <div class="partner-card">
+                <strong>What partners can bring</strong>
+                <p>
+                  A strong partner mix creates better outcomes for teams. Sponsors can bring domain
+                  knowledge, platforms, APIs, data scenarios, user insights, and pathways for the
+                  best projects to continue after demo day.
+                </p>
+              </div>
+            </div>
+
+            <div class="partner-grid">
+              <article class="partner-card">
+                <strong>Shape the challenge</strong>
+                <p>
+                  Contribute problem statements grounded in teaching, student experience, campus
+                  operations, or workforce learning.
+                </p>
+              </article>
+
+              <article class="partner-card">
+                <strong>Support the build</strong>
+                <p>
+                  Provide mentors, technical experts, software access, API keys, cloud credits, or
+                  demo environments that help teams move faster.
+                </p>
+              </article>
+
+              <article class="partner-card">
+                <strong>Extend the impact</strong>
+                <p>
+                  Offer pilots, internships, incubation conversations, or continued collaboration
+                  for prototypes with strong education potential.
+                </p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="benefits" aria-labelledby="benefits-title">
+          <div class="section-card">
+            <div class="section-head">
+              <div>
+                <div class="section-label">Benefits</div>
+                <h2 id="benefits-title">Clear value for sponsors and students</h2>
+              </div>
+              <p>
+                The event is designed to create practical value on both sides: sponsors gain access
+                to new ideas, talent, and emerging use cases, while students gain experience,
+                mentorship, and real exposure to innovation in education.
+              </p>
+            </div>
+
+            <div class="benefit-grid">
+              <article class="benefit-card">
+                <strong>Benefits for sponsors</strong>
+                <ul class="bullets">
+                  <li>Access high-potential student talent with strong interest in AI and education.</li>
+                  <li>Increase brand visibility within the SUSS community and wider innovation ecosystem.</li>
+                  <li>Test products, platforms, or APIs against relevant education use cases.</li>
+                  <li>Discover fresh prototype ideas tied to real learning and teaching challenges.</li>
+                  <li>Engage educators and academic stakeholders in a hands-on innovation setting.</li>
+                  <li>Spot pilot opportunities, internship candidates, and future collaborators early.</li>
+                </ul>
+              </article>
+
+              <article class="benefit-card">
+                <strong>Benefits for students</strong>
+                <ul class="bullets">
+                  <li>Work on meaningful problems that connect AI innovation with real education needs.</li>
+                  <li>Learn how to build practical solutions for learning, teaching, and student support.</li>
+                  <li>Receive mentorship from SUSS faculty, industry experts, and sponsoring partners.</li>
+                  <li>Strengthen portfolios with prototypes, presentations, and teamwork experience.</li>
+                  <li>Gain exposure to internships, pilot projects, and career conversations with sponsors.</li>
+                  <li>Collaborate across disciplines and build confidence in turning ideas into outcomes.</li>
+                </ul>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="venue" aria-labelledby="venue-title">
+          <div class="section-card">
+            <div class="section-head">
+              <div>
+                <div class="section-label">Venue</div>
+                <h2 id="venue-title">Hosted at SUSS, an autonomous university in Singapore</h2>
+              </div>
+              <p>
+                Holding the hackathon at Singapore University of Social Sciences gives the event a
+                credible education setting. SUSS became an official autonomous university in 2017,
+                with roots dating back to 2005, and it places teams in a campus environment where
+                teaching, learner support, inclusive education, and lifelong learning are central
+                to the institution's mission.
+              </p>
+            </div>
+
+            <div class="venue-strip">
+              <article class="venue-card">
+                <strong>Why the venue matters</strong>
+                <p>
+                  The SUSS campus creates a strong bridge between ideas and context. Participants
+                  can engage with an environment that reflects real student journeys, educator
+                  workflows, adult learning pathways, and an institutional emphasis on applied and
+                  experiential learning.
+                </p>
+              </article>
+
+              <article class="venue-card">
+                <strong>Venue highlights</strong>
+                <ul class="bullets">
+                  <li>Official autonomous university in Singapore since 2017, with history dating back to 2005.</li>
+                  <li>Campus venue at 463 Clementi Road, Singapore 599494.</li>
+                  <li>University setting aligned to lifelong learning, inclusive education, and social impact.</li>
+                  <li>Suitable spaces for workshops, team collaboration, mentoring, and final demos.</li>
+                  <li>Direct relevance for education-focused prototypes and stakeholder conversations.</li>
+                  <li>Learning Services Cluster supports programme delivery through educational initiatives, innovative pedagogies, and learning technologies.</li>
+                  <li>Strong positioning for sponsors that want visibility in a credible academic environment.</li>
+                </ul>
+              </article>
+            </div>
+
+            <div class="cta-band">
+              <div>
+                <h3>Build with SUSS. Sponsor meaningful education innovation.</h3>
+                <p>
+                  The strongest hackathons do more than award prizes. They connect real problems,
+                  motivated students, and partners willing to help good ideas move forward.
+                </p>
+              </div>
+              <a
+                class="btn secondary"
+                href="mailto:bryanlimyt@suss.edu.sg?subject=HACK%3A%20Sponsoring%20Partner"
+                data-email-trigger="true"
+              >
+                Email sponsorship interest
+              </a>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer>
+      <div class="wrap">
+        <div class="footnote">
+          SUSS Future Learning Hackathon concept page for learning innovation, education use cases,
+          and agentic AI collaboration.
+        </div>
+      </div>
+    </footer>
+
+    <div
+      class="modal-backdrop"
+      id="emailModal"
+      hidden
+      aria-hidden="true"
+    >
+      <div
+        class="modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="emailModalTitle"
+        aria-describedby="emailModalText"
+      >
+        <h2 id="emailModalTitle">Contact sponsoring partner lead</h2>
+        <p id="emailModalText">
+          This will open your default mail app and start a message to:
+        </p>
+        <div class="modal-email">bryanlimyt@suss.edu.sg</div>
+        <p>Subject: <strong>HACK: Sponsoring Partner</strong></p>
+        <div class="modal-actions">
+          <button class="btn primary" id="emailModalConfirm" type="button">Open Email</button>
+          <button class="btn secondary" id="emailModalCancel" type="button">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        const words = ["Hack", "Build", "Shape", "Design", "Launch"];
+        const heroWord = document.getElementById("heroWord");
+        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        if (heroWord && !reduceMotion) {
+          let wordIndex = 0;
+          window.setInterval(() => {
+            wordIndex = (wordIndex + 1) % words.length;
+            heroWord.classList.remove("is-changing");
+            void heroWord.offsetWidth;
+            heroWord.textContent = words[wordIndex];
+            heroWord.classList.add("is-changing");
+          }, 1500);
+        }
+
+        const modal = document.getElementById("emailModal");
+        const confirmButton = document.getElementById("emailModalConfirm");
+        const cancelButton = document.getElementById("emailModalCancel");
+        const emailTriggers = document.querySelectorAll("[data-email-trigger='true']");
+        let pendingMailto = "";
+        let lastTrigger = null;
+
+        function openModal(mailto, trigger) {
+          pendingMailto = mailto;
+          lastTrigger = trigger;
+          modal.hidden = false;
+          modal.setAttribute("aria-hidden", "false");
+          document.body.classList.add("modal-open");
+          confirmButton.focus();
+        }
+
+        function closeModal() {
+          modal.hidden = true;
+          modal.setAttribute("aria-hidden", "true");
+          document.body.classList.remove("modal-open");
+
+          if (lastTrigger) {
+            lastTrigger.focus();
+          }
+        }
+
+        emailTriggers.forEach((trigger) => {
+          trigger.addEventListener("click", (event) => {
+            event.preventDefault();
+            openModal(trigger.getAttribute("href"), trigger);
+          });
+        });
+
+        confirmButton.addEventListener("click", () => {
+          if (pendingMailto) {
+            window.location.href = pendingMailto;
+          }
+
+          closeModal();
+        });
+
+        cancelButton.addEventListener("click", closeModal);
+
+        modal.addEventListener("click", (event) => {
+          if (event.target === modal) {
+            closeModal();
+          }
+        });
+
+        window.addEventListener("keydown", (event) => {
+          if (event.key === "Escape" && !modal.hidden) {
+            closeModal();
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>
