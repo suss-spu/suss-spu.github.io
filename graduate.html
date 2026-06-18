@@ -1,0 +1,661 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Graduate Associate Programme — a 12-month, project-based programme for SUSS graduates in Finance, Business Analytics, Marketing, and Supply Chain."
+    />
+    <meta name="theme-color" content="#090b12" />
+    <title>SUSS Graduate Associate Programme</title>
+    <style>
+      :root {
+        --bg: #090b12;
+        --bg-soft: #0f131d;
+        --line: rgba(224, 233, 255, 0.12);
+        --text: #f5f7fc;
+        --muted: #b1bad0;
+        --green: #52ffaf;
+        --cyan: #9ad6ff;
+        --shadow: 0 28px 70px rgba(0, 0, 0, 0.34);
+        --radius: 28px;
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        color: var(--text);
+        font-family: "Avenir Next", "Helvetica Neue", "Segoe UI", sans-serif;
+        background:
+          radial-gradient(circle at top, rgba(20, 29, 44, 0.46), transparent 34%),
+          linear-gradient(180deg, #090b12 0%, #0a0d14 56%, #06080c 100%);
+        overflow-x: hidden;
+      }
+
+      .scene {
+        position: fixed;
+        inset: 0;
+        z-index: -2;
+        pointer-events: none;
+        overflow: hidden;
+      }
+
+      .stars,
+      .stars::after {
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: transparent;
+      }
+
+      .stars::after {
+        content: "";
+        top: 2200px;
+      }
+
+      .stars.small,
+      .stars.small::after {
+        width: 1px;
+        height: 1px;
+        box-shadow: var(--stars-small);
+        animation: riseStars 180s linear infinite;
+      }
+
+      .stars.large,
+      .stars.large::after {
+        width: 2px;
+        height: 2px;
+        box-shadow: var(--stars-large);
+        opacity: 0.9;
+        animation: riseStars 290s linear infinite;
+      }
+
+      @keyframes riseStars {
+        from { transform: translateY(0); }
+        to { transform: translateY(-2200px); }
+      }
+
+      .glow {
+        position: absolute;
+        left: 50%;
+        bottom: -18vh;
+        width: 165vw;
+        height: 54vh;
+        transform: translateX(-50%);
+        border-radius: 100% 100% 0 0;
+        background: rgb(7, 255, 95);
+        filter: blur(36px);
+        opacity: 0.18;
+      }
+
+      .glow::before,
+      .glow::after {
+        content: "";
+        position: absolute;
+        border-radius: 100%;
+        filter: blur(34px);
+      }
+
+      .glow::before {
+        inset: 16% 9% auto;
+        height: 58%;
+        background: rgba(81, 255, 175, 0.4);
+      }
+
+      .glow::after {
+        left: 34%;
+        right: 34%;
+        top: 22%;
+        height: 22%;
+        background: rgba(176, 255, 218, 0.44);
+      }
+
+      .horizon {
+        position: absolute;
+        left: 50%;
+        bottom: -44vh;
+        width: 210vw;
+        height: 92vh;
+        transform: translateX(-50%);
+        border-radius: 100%;
+        background: #000;
+        box-shadow: inset 0 0 72px 18px rgba(47, 122, 84, 0.6);
+      }
+
+      .horizon::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        background: linear-gradient(
+          90deg,
+          rgba(0, 0, 0, 1) 0%,
+          rgba(0, 0, 0, 0) 50%,
+          rgba(0, 0, 0, 1) 100%
+        );
+      }
+
+      a { color: inherit; }
+
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        backdrop-filter: blur(16px);
+        background: rgba(8, 10, 16, 0.58);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+      }
+
+      .wrap {
+        width: min(1080px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      .bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 16px 0;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+      }
+
+      .brand-mark {
+        width: 40px;
+        height: 40px;
+        border-radius: 14px;
+        background:
+          radial-gradient(circle at 28% 28%, rgba(154, 214, 255, 0.95), transparent 48%),
+          radial-gradient(circle at 72% 70%, rgba(82, 255, 175, 0.9), transparent 52%),
+          rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.24);
+      }
+
+      .brand-label {
+        font-size: 0.74rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      .brand-name {
+        font-size: 1.02rem;
+        font-weight: 650;
+      }
+
+      nav {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      nav a {
+        text-decoration: none;
+        color: var(--muted);
+        padding: 10px 14px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.03);
+        transition: transform 160ms ease, color 160ms ease, border-color 160ms ease;
+      }
+
+      nav a:hover {
+        transform: translateY(-1px);
+        color: var(--text);
+        border-color: rgba(255, 255, 255, 0.16);
+      }
+
+      main {
+        padding: 38px 0 84px;
+      }
+
+      .hero {
+        text-align: center;
+        position: relative;
+        padding: clamp(30px, 6vw, 60px);
+        border-radius: var(--radius);
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.02);
+        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
+        overflow: hidden;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 11px 20px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--text);
+        font-size: clamp(1rem, 2vw, 1.25rem);
+        font-weight: 700;
+        letter-spacing: 0.01em;
+      }
+
+      h1, h2, h3, p { margin: 0; }
+
+      h1 {
+        margin-top: 22px;
+        font-size: clamp(2.6rem, 7vw, 5rem);
+        line-height: 1.04;
+        letter-spacing: -0.04em;
+      }
+
+      .hero-word { color: var(--green); }
+
+      .lede {
+        max-width: 48ch;
+        margin: 18px auto 0;
+        color: var(--muted);
+        font-size: clamp(1rem, 1.6vw, 1.15rem);
+        line-height: 1.7;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        padding: 13px 22px;
+        border-radius: 16px;
+        border: 1px solid transparent;
+        text-decoration: none;
+        font-weight: 650;
+        transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 18px 34px rgba(0, 0, 0, 0.22);
+      }
+
+      .btn.primary {
+        color: #07120e;
+        background: linear-gradient(135deg, var(--cyan), var(--green));
+      }
+
+      .section {
+        margin-top: 40px;
+        padding-top: 34px;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .section-head {
+        text-align: center;
+        max-width: 56ch;
+        margin: 0 auto;
+      }
+
+      .section-label {
+        color: var(--muted);
+        font-size: 0.78rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      h2 {
+        margin-top: 10px;
+        font-size: clamp(1.8rem, 4vw, 2.5rem);
+        letter-spacing: -0.03em;
+      }
+
+      /* Who it's for */
+      .who-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 30px;
+      }
+
+      .who-card {
+        text-align: center;
+        padding: 30px 16px 24px;
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.03);
+        transition: transform 200ms ease, background 200ms ease, border-color 200ms ease;
+      }
+
+      .who-card:hover {
+        transform: translateY(-6px);
+        border-color: rgba(255, 255, 255, 0.22);
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      .who-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 46px;
+        height: 46px;
+        margin: 0 auto;
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .who-icon svg {
+        width: 22px;
+        height: 22px;
+        stroke: var(--cyan);
+        fill: none;
+        stroke-width: 1.6;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .who-card strong {
+        display: block;
+        margin-top: 14px;
+        font-size: 1.02rem;
+        letter-spacing: -0.01em;
+      }
+
+      /* Steps */
+      .steps {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+        margin: 30px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .steps li {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 10px;
+        padding: 26px 18px;
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.03);
+        transition: transform 200ms ease, background 200ms ease;
+      }
+
+      .steps li:hover {
+        transform: translateY(-4px);
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      .step-num {
+        flex: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        border-radius: 999px;
+        font-weight: 800;
+        font-size: 0.92rem;
+        background: linear-gradient(135deg, var(--cyan), var(--green));
+        color: #07120e;
+      }
+
+      .steps strong {
+        font-size: 1.02rem;
+      }
+
+      .steps p {
+        color: var(--muted);
+        font-size: 0.92rem;
+        line-height: 1.5;
+      }
+
+      .cta {
+        margin-top: 34px;
+        padding: 26px clamp(20px, 4vw, 36px);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        flex-wrap: wrap;
+        border-radius: 24px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.02);
+        box-shadow: 0 22px 56px rgba(0, 0, 0, 0.16);
+      }
+
+      .cta h3 {
+        font-size: clamp(1.3rem, 2.6vw, 1.7rem);
+        letter-spacing: -0.03em;
+      }
+
+      footer {
+        padding: 0 0 40px;
+      }
+
+      .footnote {
+        margin-top: 18px;
+        text-align: center;
+        font-size: 0.9rem;
+        color: var(--muted);
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(16px);
+        transition: opacity 650ms ease, transform 650ms ease;
+      }
+
+      .reveal.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .hero .reveal {
+        opacity: 0;
+        animation: heroIn 700ms ease forwards;
+      }
+
+      .hero .reveal:nth-child(2) { animation-delay: 90ms; }
+      .hero .reveal:nth-child(3) { animation-delay: 180ms; }
+
+      @keyframes heroIn {
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      @media (max-width: 900px) {
+        .who-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .steps { grid-template-columns: 1fr; }
+      }
+
+      @media (max-width: 640px) {
+        .bar { flex-direction: column; align-items: flex-start; gap: 10px; }
+        nav { width: 100%; }
+        nav a { flex: 1 1 auto; text-align: center; }
+        .who-grid { grid-template-columns: 1fr; }
+        .cta { flex-direction: column; align-items: flex-start; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        .stars.small, .stars.large, .hero .reveal { animation: none !important; }
+        .reveal, nav a, .btn, .who-card, .steps li { transition: none !important; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="scene" aria-hidden="true">
+      <div class="stars small"></div>
+      <div class="stars large"></div>
+      <div class="glow"></div>
+      <div class="horizon"></div>
+    </div>
+
+    <header>
+      <div class="wrap">
+        <div class="bar">
+          <a class="brand" href="index.html" aria-label="SUSS Special Projects Unit">
+            <div class="brand-mark" aria-hidden="true"></div>
+            <div>
+              <div class="brand-label">SUSS</div>
+              <div class="brand-name">Special Projects Unit</div>
+            </div>
+          </a>
+          <nav aria-label="Page sections">
+            <a href="#who">Who it's for</a>
+            <a href="#how">How it works</a>
+            <a href="#apply">Submit a project</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="wrap">
+        <section class="hero" aria-labelledby="hero-title">
+          <div class="eyebrow reveal">Graduate Associate Programme</div>
+          <h1 id="hero-title" class="reveal">
+            Launch your <span class="hero-word">career</span>.
+          </h1>
+          <p class="lede reveal">12 months. Real project ownership. A path to full-time.</p>
+        </section>
+
+        <section class="section" id="who" aria-labelledby="who-title">
+          <div class="section-head">
+            <div class="section-label">Who it's for</div>
+            <h2 id="who-title">For SUSS graduates in:</h2>
+          </div>
+
+          <div class="who-grid">
+            <div class="who-card">
+              <div class="who-icon">
+                <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 1 1 0 7H6"></path></svg>
+              </div>
+              <strong>Finance</strong>
+            </div>
+            <div class="who-card">
+              <div class="who-icon">
+                <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+              </div>
+              <strong>Business Analytics</strong>
+            </div>
+            <div class="who-card">
+              <div class="who-icon">
+                <svg viewBox="0 0 24 24"><path d="M3 11l18-5v12L3 13v-2z"></path><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"></path></svg>
+              </div>
+              <strong>Marketing</strong>
+            </div>
+            <div class="who-card">
+              <div class="who-icon">
+                <svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.2"></circle><circle cx="18.5" cy="18.5" r="2.2"></circle></svg>
+              </div>
+              <strong>Supply Chain</strong>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="how" aria-labelledby="how-title">
+          <div class="section-head">
+            <div class="section-label">How it works</div>
+            <h2 id="how-title">For HODs with an active project</h2>
+          </div>
+
+          <ol class="steps">
+            <li>
+              <span class="step-num">1</span>
+              <strong>Identify</strong>
+              <p>A project with 12-month scope.</p>
+            </li>
+            <li>
+              <span class="step-num">2</span>
+              <strong>Define</strong>
+              <p>The role, in the JD template.</p>
+            </li>
+            <li>
+              <span class="step-num">3</span>
+              <strong>Submit</strong>
+              <p>It to HRBP for review.</p>
+            </li>
+          </ol>
+
+          <div class="cta" id="apply">
+            <h3>Have a project a graduate could own?</h3>
+            <a
+              class="btn primary"
+              href="mailto:SpecialProjectsUnit@suss.edu.sg?subject=Graduate%20Associate%20Programme%20-%20Project%20Submission"
+            >
+              Submit a project
+            </a>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer>
+      <div class="wrap">
+        <div class="footnote">SUSS Special Projects Unit · Graduate Associate Programme · HRBP: Sophia Ong</div>
+      </div>
+    </footer>
+
+    <script>
+      (function () {
+        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        function createSeededRandom(seed) {
+          let value = seed;
+          return function () {
+            value = (value * 1664525 + 1013904223) % 4294967296;
+            return value / 4294967296;
+          };
+        }
+
+        function createStars(count, spread, color, seed) {
+          const random = createSeededRandom(seed);
+          const stars = [];
+          for (let index = 0; index < count; index += 1) {
+            const x = Math.round(random() * spread);
+            const y = Math.round(random() * spread);
+            stars.push(x + "px " + y + "px " + color);
+          }
+          return stars.join(", ");
+        }
+
+        const root = document.documentElement;
+        root.style.setProperty("--stars-small", createStars(190, 2200, "#fff", 11));
+        root.style.setProperty("--stars-large", createStars(90, 2200, "#fff", 29));
+
+        const revealItems = document.querySelectorAll(".reveal");
+
+        if (!reduceMotion && "IntersectionObserver" in window) {
+          const observer = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  entry.target.classList.add("is-visible");
+                  observer.unobserve(entry.target);
+                }
+              });
+            },
+            { threshold: 0.18 }
+          );
+
+          revealItems.forEach((item) => {
+            if (!item.closest(".hero")) {
+              observer.observe(item);
+            } else {
+              item.classList.add("is-visible");
+            }
+          });
+        } else {
+          revealItems.forEach((item) => item.classList.add("is-visible"));
+        }
+      })();
+    </script>
+  </body>
+</html>
